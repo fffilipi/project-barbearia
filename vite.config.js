@@ -17,4 +17,8 @@ export default defineConfig({
             },
         }),
     ],
+    server: {
+        host: '0.0.0.0', // Permite conexões externas
+        port: 5173,      // Garante que o Vite use a porta correta
+    },
 });

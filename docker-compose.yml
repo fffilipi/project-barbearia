@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"    # Porta para o Laravel (backend)
+      - "5173:5173"    # Porta para o Vite (frontend)
+    volumes:
+      - .:/app    # Mapeia a pasta local para o diretório do contêiner
+      - /app/vendor # Evita a substituição dos arquivos de dependências do Composer
+    stdin_open: true
+    tty: true
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - APP_URL=http://localhost:8000
+    command: ["bash", "-c", "php-fpm & npm run dev"]  # Comando para rodar o Laravel e o Vite simultaneamente
+
+
