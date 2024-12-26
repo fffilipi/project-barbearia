@@ -33,5 +33,4 @@ Este projeto usa Laravel para o backend e Vite para o frontend. Siga os passos a
     Laravel (backend): http://localhost:8000
 
 ### **Conclusão:**
-
 Após rodar o start.sh, o ambiente de desenvolvimento estará configurado automaticamente, com o Laravel e Vite rodando em containers Docker, e as migrations do banco de dados sendo aplicadas. 🚀

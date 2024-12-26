@@ -2,7 +2,18 @@
 FROM php:8.2-fpm
 
 # Instalar dependências do sistema e extensões do PHP necessárias para o Laravel
-RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev zip git unzip libxml2-dev libcurl4-openssl-dev
+RUN apt-get update && apt-get install -y \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    zip \
+    git \
+    unzip \
+    libxml2-dev \
+    libcurl4-openssl-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd pdo_mysql \
+    && apt-get clean
 
 # Instalar o Composer para gerenciar as dependências do Laravel
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -23,7 +34,7 @@ RUN composer install --no-interaction --prefer-dist
 RUN npm install
 
 # Rodar as migrations e gerar a chave do Laravel
-RUN php artisan key:generate && php artisan migrate --force
+# RUN php artisan key:generate && php artisan migrate --force
 
 # Expor a porta do PHP-FPM e a porta do Vite
 EXPOSE 9000
