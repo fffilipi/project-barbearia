@@ -24,8 +24,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/funcionarios', function () {
+Route::get('/employees', function () {
     return Inertia::render('Funcionarios');
-})->middleware(['auth', 'verified'])->name('funcionarios');
+})->middleware(['auth', 'verified'])->name('employees');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/add-employees', [ProfileController::class, 'create'])->name('employees.create');
+});
 
 require __DIR__.'/auth.php';
